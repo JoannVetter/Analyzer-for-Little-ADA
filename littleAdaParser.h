@@ -1,1 +1,2 @@
-#define FILEE 0
+#define NULL 0
+#define TEST 1

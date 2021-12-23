@@ -5,18 +5,28 @@ extern int yylex();
 extern yylineno;
 extern char* yytext;
 
-char *names[] = {"FILE"};
+char *names[] = {
+    "this should not be displayed",
+    "TEST"
+ };
 
-int main(void) {
+int ntoken;
 
-    int ntoken, vtoken;
-
+int process() {
     ntoken = yylex();
-    while(ntoken) {
+    if (!ntoken) {
         switch (ntoken) {
-            case FILEE: 
-                fprintf("%s ", names[FILEE]);
+            case TEST: 
+                fprintf("%s ", names[TEST]);
                 break;
         }
+        process();
     }
+    else {
+        return 0;
+    }
+}
+
+int main(void) {
+    return process();
 }
