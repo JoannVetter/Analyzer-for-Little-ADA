@@ -30,6 +30,7 @@ int process() {
         process();
     }
     else {
+        printf("\n");
         return 0;
     }
 }

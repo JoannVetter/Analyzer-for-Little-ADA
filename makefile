@@ -5,5 +5,5 @@ lex.yy.c: littleAdaParser.l
 	flex littleAdaParser.l
 
 clean:
-	rm lex.yy.c
-	rm littleAdaParser
+	rm lex.yy.c || true
+	rm littleAdaParser || true
