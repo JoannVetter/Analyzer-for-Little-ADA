@@ -1,1 +1,2 @@
 #define IDENTIFIANT 1
+#define BASECONST 2
