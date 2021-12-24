@@ -1,2 +1,1 @@
-#define NULL 0
-#define TEST 1
+#define IDENTIFIANT 1
