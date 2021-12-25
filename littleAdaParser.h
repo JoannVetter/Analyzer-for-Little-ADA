@@ -1,2 +1,4 @@
 #define IDENTIFIANT 1
 #define BASECONST 2
+#define DECCONST 3
+#define CHARCONST 4

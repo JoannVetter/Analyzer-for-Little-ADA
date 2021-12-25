@@ -6,6 +6,8 @@
 
 [a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*     return IDENTIFIANT;
 [0-9](_[0-9]|[0-9])*#[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*(\.[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*)?#([eE][+-]?[0-9](_[0-9]|[0-9])*)?     return BASECONST;
+[0-9](_[0-9]|[0-9])*(.[0-9](_[0-9]|[0-9])*)?([eE][+-]?[0-9](_[0-9]|[0-9])*)?  return DECCONST;
+\"(|(\"\"|[^\n\"])*)"   return CHARCONST;
 .                                       printf("unexpected character\n");
 
 
@@ -16,7 +18,9 @@ int yywrap() {}
 const char const* names[] = {
     "this should not be displayed",
     "IDENTIFIANT",
-    "BASECONST"
+    "BASECONST",
+    "DECCONST",
+    "CHARCONST"
  };
 
 int ntoken;
