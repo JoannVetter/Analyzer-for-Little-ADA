@@ -1,2 +1,3 @@
 #define IDENTIFIANT 1
 #define BASECONST 2
+#define IDENTIFIANT_QUALIFIE 3
