@@ -5,6 +5,7 @@
 %%
 
 [a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*     return IDENTIFIANT;
+[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*(\.[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*)+     return IDENTIFIANT_QUALIFIE;
 [0-9](_[0-9]|[0-9])*#[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*(\.[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*)?#([eE][+-]?[0-9](_[0-9]|[0-9])*)?     return BASECONST;
 [0-9](_[0-9]|[0-9])*(.[0-9](_[0-9]|[0-9])*)?([eE][+-]?[0-9](_[0-9]|[0-9])*)?    return DECCONST;
 \"(""|(\"\"|[^\n\"])*)\"   return STRINGCONST;
@@ -20,7 +21,8 @@ const char const* names[] = {
     "IDENTIFIANT",
     "BASECONST",
     "DECCONST",
-    "STRINGCONST"
+    "STRINGCONST",
+    "IDENTIFIANT_QUALIFIE"
  };
 
 int ntoken;
@@ -34,6 +36,9 @@ int process() {
                 break;
             case BASECONST:
                 printf(names[BASECONST]);
+                break;
+            case IDENTIFIANT_QUALIFIE:
+                printf(names[IDENTIFIANT_QUALIFIE]);
                 break;
             case DECCONST:
                 printf(names[DECCONST]);
