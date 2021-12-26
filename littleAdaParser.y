@@ -8,7 +8,7 @@ int yylex();
 
 %union {int num; char id;}
 %start file
-%token identifiant qualifIdentifiant baseConst decConst stringConst
+%token identifiant qualifIdentifiant baseConst decConst stringConst symbole
 
 %%
 
@@ -28,7 +28,20 @@ declaration :                           {;};
 
 instruction :                           {;};
 
-expression  : term                      {;};
+expressions : expression ',' expressions {;}
+			| expression				 {;}
+			;
+
+expression  : term                      {;}
+			| 'abs ' expression			{;}
+			| 'not ' expression			{;}
+			| '- ' expression			{;}
+			| expression symbole expression {;}
+			| identifiant '('expressions')' {;}
+			| qualifIdentifiant '('expressions')' {;}
+			| '('expression')' {;}
+			//et et ou coupe circuit pas compris mdr du coup il reste le then et le else
+			;
 
 term        : identifiant               {printf("identifiant");}
             | qualifIdentifiant         {printf("qualifIdentifiant");}

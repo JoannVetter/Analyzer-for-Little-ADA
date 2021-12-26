@@ -6,6 +6,7 @@
 
 %%
 
++|-|*|/|**|=|/=|<=|>=|<|>|mod|rem|and|or|xor {return symbole;}
 [a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*     {return identifiant;}
 [a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*(\.[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*)+     {return qualifIdentifiant;}
 [0-9](_[0-9]|[0-9])*#[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*(\.[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*)?#([eE][+-]?[0-9](_[0-9]|[0-9])*)?     {return baseConst;}
