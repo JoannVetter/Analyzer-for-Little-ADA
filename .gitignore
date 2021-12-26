@@ -1,2 +1,4 @@
 lex.yy.c
 littleAdaParser
+littleAdaParser.tab.c
+littleAdaParser.tab.h
