@@ -1,22 +1,25 @@
 %{
-    #include "littleAdaParser.h"
+    #include "littleAdaParser.tab.h"
+    void yyerror (char *s);
+    int yylex();
 %}
 
 %%
 
-[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*     return IDENTIFIANT;
-[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*(\.[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*)+     return IDENTIFIANT_QUALIFIE;
-[0-9](_[0-9]|[0-9])*#[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*(\.[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*)?#([eE][+-]?[0-9](_[0-9]|[0-9])*)?     return BASECONST;
-[0-9](_[0-9]|[0-9])*(.[0-9](_[0-9]|[0-9])*)?([eE][+-]?[0-9](_[0-9]|[0-9])*)?    return DECCONST;
-\"(""|(\"\"|[^\n\"])*)\"   return STRINGCONST;
-.                                       printf("unexpected character\n");
+[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*     {return identifiant;}
+[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*(\.[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*)+     {return qualifIdentifiant;}
+[0-9](_[0-9]|[0-9])*#[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*(\.[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*)?#([eE][+-]?[0-9](_[0-9]|[0-9])*)?     {return baseConst;}
+[0-9](_[0-9]|[0-9])*(.[0-9](_[0-9]|[0-9])*)?([eE][+-]?[0-9](_[0-9]|[0-9])*)?    {return decConst;}
+\"(""|(\"\"|[^\n\"])*)\"   {return stringConst;}
+[ \t\n]                    ;
+.                          {ECHO; yyerror ("unexpected character");};
 
 
 %%
 
 int yywrap() {}
 
-const char const* names[] = {
+/* const char const* names[] = {
     "this should not be displayed",
     "IDENTIFIANT",
     "BASECONST",
@@ -53,8 +56,4 @@ int process() {
         printf("\n");
         return 0;
     }
-}
-
-int main(void) {
-    return process();
-}
+} */
