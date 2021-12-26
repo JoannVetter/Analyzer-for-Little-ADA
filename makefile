@@ -1,5 +1,5 @@
 littleAdaParser: littleAdaParser.tab.c lex.yy.c
-	gcc -g lex.yy.c littleAdaParser.tab.c -o littleAdaParser.test 
+	gcc -g lex.yy.c littleAdaParser.tab.c -o littleAdaParser
 
 lex.yy.c: littleAdaParser.l littleAdaParser.tab.c
 	flex littleAdaParser.l
