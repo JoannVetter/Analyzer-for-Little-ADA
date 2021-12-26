@@ -14,7 +14,9 @@ int yylex();
 
 file        : lines                     {;};
 
-lines       : line '\n'                 {;};
+lines       : line '\n' lines           {;}
+            | line                      {;}
+            ;
 
 line        : declaration               {;}
             | instruction               {;}
@@ -24,7 +26,7 @@ line        : declaration               {;}
 
 declaration :                           {;};
 
-instruction :
+instruction :                           {;};
 
 expression  : term                      {;};
 
