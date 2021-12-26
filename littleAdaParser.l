@@ -7,6 +7,8 @@
 [a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*     return IDENTIFIANT;
 [a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*(\.[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*)+     return IDENTIFIANT_QUALIFIE;
 [0-9](_[0-9]|[0-9])*#[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*(\.[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*)?#([eE][+-]?[0-9](_[0-9]|[0-9])*)?     return BASECONST;
+[0-9](_[0-9]|[0-9])*(.[0-9](_[0-9]|[0-9])*)?([eE][+-]?[0-9](_[0-9]|[0-9])*)?    return DECCONST;
+\"(""|(\"\"|[^\n\"])*)\"   return STRINGCONST;
 .                                       printf("unexpected character\n");
 
 
@@ -18,6 +20,8 @@ const char const* names[] = {
     "this should not be displayed",
     "IDENTIFIANT",
     "BASECONST",
+    "DECCONST",
+    "STRINGCONST",
     "IDENTIFIANT_QUALIFIE"
  };
 
@@ -36,6 +40,12 @@ int process() {
             case IDENTIFIANT_QUALIFIE:
                 printf(names[IDENTIFIANT_QUALIFIE]);
                 break;
+            case DECCONST:
+                printf(names[DECCONST]);
+                break;
+            case STRINGCONST:
+                printf(names[STRINGCONST]);
+                break;    
         }
         process();
     }
