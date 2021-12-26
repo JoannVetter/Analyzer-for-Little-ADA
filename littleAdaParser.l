@@ -11,9 +11,10 @@
 [a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*(\.[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*)+     {return qualifIdentifiant;}
 [0-9](_[0-9]|[0-9])*#[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*(\.[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*)?#([eE][+-]?[0-9](_[0-9]|[0-9])*)?     {return baseConst;}
 [0-9](_[0-9]|[0-9])*(.[0-9](_[0-9]|[0-9])*)?([eE][+-]?[0-9](_[0-9]|[0-9])*)?    {return decConst;}
-\"(""|(\"\"|[^\n\"])*)\"   {return stringConst;}
-[ \t\n]                    ;
-.                          {ECHO; yyerror ("unexpected character");};
+\"(""|(\"\"|[^\n\"])*)\"    {return stringConst;}
+--.*\n                      ;
+[ \t\n]                     ;
+.                           {ECHO; yyerror ("unexpected character");};
 
 
 %%
