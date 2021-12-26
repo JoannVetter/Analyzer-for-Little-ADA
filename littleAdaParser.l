@@ -40,7 +40,7 @@ int process() {
                 break;
             case STRINGCONST:
                 printf(names[STRINGCONST]);
-                break;    
+                break;
         }
         process();
     }
