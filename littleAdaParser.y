@@ -37,7 +37,7 @@ declarations : declaration '\n'declarations {;}
 declaration : declarationObjet                         {;}
 			| 'type' identifiant 'is range' expression '..' expression ';' {;}
 			| 'subtype' identifiant 'is' type ';' {;}
-			| identifiants ':' type 'renames' qualifIdentifiant ';' {;}
+			| identifiantsVirgule ':' type 'renames' qualifIdentifiant ';' {;}
 			| 'procedure' identifiant ';' {;}
 			| 'procedure' identifiant parametres ';' {;}
 			| 'function' identifiant 'return' identifiant ';' {;}
@@ -47,18 +47,18 @@ declaration : declarationObjet                         {;}
 			| definition {;}
 			;
 
-definition : 'procedure' identifiant 'is' declarations 'begin' instructions 'end;' {;}
-			| 'procedure' identifiant 'is' declarations 'begin' instructions 'end' identifiant ';' {;}
-			| 'procedure' identifiant parametres 'is' declarations 'begin' instructions 'end;' {;}
-			| 'procedure' identifiant parametres 'is' declarations 'begin' instructions 'end' identifiant ';' {;}
-			| 'function' identifiant 'return' identifiant 'is' declarations 'begin' instructions 'end;' {;}
-			| 'function' identifiant 'return' identifiant 'is' declarations 'begin' instructions 'end' identifiant ';' {;}
-			| 'function' identifiant 'return' qualifIdentifiant 'is' declarations 'begin' instructions 'end;' {;}
-			| 'function' identifiant 'return' qualifIdentifiant 'is' declarations 'begin' instructions 'end' identifiant ';' {;}
-			| 'function' identifiant parametres 'return' identifiant 'is' declarations 'begin' instructions 'end;' {;}
-			| 'function' identifiant parametres 'return' identifiant 'is' declarations 'begin' instructions 'end' identifiant ';' {;}
-			| 'function' identifiant parametres 'return' qualifIdentifiant 'is' declarations 'begin' instructions 'end;' {;}
-			| 'function' identifiant parametres 'return' qualifIdentifiant 'is' declarations 'begin' instructions 'end' identifiant ';' {;}
+definition : 'procedure' identifiant 'is' declarations 'begin' instructionsSaut 'end;' {;}
+			| 'procedure' identifiant 'is' declarations 'begin' instructionsSaut 'end' identifiant ';' {;}
+			| 'procedure' identifiant parametres 'is' declarations 'begin' instructionsSaut 'end;' {;}
+			| 'procedure' identifiant parametres 'is' declarations 'begin' instructionsSaut 'end' identifiant ';' {;}
+			| 'function' identifiant 'return' identifiant 'is' declarations 'begin' instructionsSaut 'end;' {;}
+			| 'function' identifiant 'return' identifiant 'is' declarations 'begin' instructionsSaut 'end' identifiant ';' {;}
+			| 'function' identifiant 'return' qualifIdentifiant 'is' declarations 'begin' instructionsSaut 'end;' {;}
+			| 'function' identifiant 'return' qualifIdentifiant 'is' declarations 'begin' instructionsSaut 'end' identifiant ';' {;}
+			| 'function' identifiant parametres 'return' identifiant 'is' declarations 'begin' instructionsSaut 'end;' {;}
+			| 'function' identifiant parametres 'return' identifiant 'is' declarations 'begin' instructionsSaut 'end' identifiant ';' {;}
+			| 'function' identifiant parametres 'return' qualifIdentifiant 'is' declarations 'begin' instructionsSaut 'end;' {;}
+			| 'function' identifiant parametres 'return' qualifIdentifiant 'is' declarations 'begin' instructionsSaut 'end' identifiant ';' {;}
 			;
 
 parametre : identifiant {;}
@@ -76,14 +76,14 @@ mode : 'in' {;}
 	 | '' {;}
 	 ;
 
-declarationObjet : identifiants ': constant' type ':=' expression ';' {;}
-				 | identifiants type ':=' expression ';' {;}
-				 | identifiants ':=' expression ';' {;}
-				 | identifiants type ';' {;}
-				 | identifiants ': constant' expression ';' {;}
-				 | identifiants ': constant' type ';' {;}
-				 | identifiants ': constant' ';' {;}
-				 | identifiants ': ;' {;}
+declarationObjet : identifiantsVirgule ': constant' type ':=' expression ';' {;}
+				 | identifiantsVirgule type ':=' expression ';' {;}
+				 | identifiantsVirgule ':=' expression ';' {;}
+				 | identifiantsVirgule type ';' {;}
+				 | identifiantsVirgule ': constant' expression ';' {;}
+				 | identifiantsVirgule ': constant' type ';' {;}
+				 | identifiantsVirgule ': constant' ';' {;}
+				 | identifiantsVirgule ': ;' {;}
 				 ;
 
 etiquettes  : '<<' identifiant '>>' etiquettes  {;}
@@ -169,7 +169,7 @@ procedureCall   : identifiants ';'              {;}
 identifiants    : identifiant           {;}
                 | qualifIdentifiant     {;}
 
-instructions : instruction '\n' instructions {;}
+instructionsSaut : instruction '\n' instructions {;}
 			 | instruction {;}
 			 ;
 
@@ -177,7 +177,7 @@ expressions : expression ',' expressions {;}
 			| expression				 {;}
 			;
 		
-identifiants : identifiant ',' identifiants {;}
+identifiantsVirgule : identifiant ',' identifiants {;}
 			| identifiant				 {;}
 			;
 
