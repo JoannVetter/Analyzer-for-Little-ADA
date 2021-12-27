@@ -23,13 +23,81 @@ line        : declaration               {;}
             | expression                {;}
             ;
 
+type : identifiant {;}
+	 | qualifIdentifiant {;}
+	 | identifiant 'range' expression '..' expression {;}
+	 | qualifIdentifiant 'range' expression '..' expression {;}
+	 ;
 
-declaration :                           {;};
+declarations : declaration '\n'declarations {;}
+			 | declaration {;}
+			 | '' {;}
+			 ;
+
+declaration : declarationObjet                         {;}
+			| 'type' identifiant 'is range' expression '..' expression ';' {;}
+			| 'subtype' identifiant 'is' type ';' {;}
+			| identifiants ':' type 'renames' qualifIdentifiant ';' {;}
+			| 'procedure' identifiant ';' {;}
+			| 'procedure' identifiant parametres ';' {;}
+			| 'function' identifiant 'return' identifiant ';' {;}
+			| 'function' identifiant 'return' qualifIdentifiant ';' {;}
+			| 'function' identifiant parametres 'return' identifiant ';' {;}
+			| 'function' identifiant parametres 'return' qualifIdentifiant ';' {;}
+			| definition {;}
+			;
+
+definition : 'procedure' identifiant 'is' declarations 'begin' instructions 'end;' {;}
+			| 'procedure' identifiant 'is' declarations 'begin' instructions 'end' identifiant ';' {;}
+			| 'procedure' identifiant parametres 'is' declarations 'begin' instructions 'end;' {;}
+			| 'procedure' identifiant parametres 'is' declarations 'begin' instructions 'end' identifiant ';' {;}
+			| 'function' identifiant 'return' identifiant 'is' declarations 'begin' instructions 'end;' {;}
+			| 'function' identifiant 'return' identifiant 'is' declarations 'begin' instructions 'end' identifiant ';' {;}
+			| 'function' identifiant 'return' qualifIdentifiant 'is' declarations 'begin' instructions 'end;' {;}
+			| 'function' identifiant 'return' qualifIdentifiant 'is' declarations 'begin' instructions 'end' identifiant ';' {;}
+			| 'function' identifiant parametres 'return' identifiant 'is' declarations 'begin' instructions 'end;' {;}
+			| 'function' identifiant parametres 'return' identifiant 'is' declarations 'begin' instructions 'end' identifiant ';' {;}
+			| 'function' identifiant parametres 'return' qualifIdentifiant 'is' declarations 'begin' instructions 'end;' {;}
+			| 'function' identifiant parametres 'return' qualifIdentifiant 'is' declarations 'begin' instructions 'end' identifiant ';' {;}
+			;
+
+parametre : identifiant {;}
+		  | identifiant ':' mode identifiant {;}
+		  | identifiant ':' mode qualifIdentifiant {;} 
+          ;
+
+parametres : parametre ',' parametres {;}
+		   | parametre {;}
+		   ;
+
+mode : 'in' {;}
+	 | 'in out' {;}
+	 | 'out' {;}
+	 | '' {;}
+	 ;
+
+declarationObjet : identifiants ': constant' type ':=' expression ';' {;}
+				 | identifiants type ':=' expression ';' {;}
+				 | identifiants ':=' expression ';' {;}
+				 | identifiants type ';' {;}
+				 | identifiants ': constant' expression ';' {;}
+				 | identifiants ': constant' type ';' {;}
+				 | identifiants ': constant' ';' {;}
+				 | identifiants ': ;' {;}
+				 ;
 
 instruction :                           {;};
 
+instructions : instruction '\n' instructions {;}
+			 | instruction {;}
+			 ;
+
 expressions : expression ',' expressions {;}
 			| expression				 {;}
+			;
+		
+identifiants : identifiant ',' identifiants {;}
+			| identifiant				 {;}
 			;
 
 expression  : term                      {;}
