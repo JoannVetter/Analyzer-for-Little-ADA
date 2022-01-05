@@ -92,12 +92,12 @@ mode : inStr {;}
 	 ;
 
 declarationObjet : identifiantsVirgule ':' constantStr type dpegalStr expression ';' {;}
-				 | identifiantsVirgule type dpegalStr expression ';' {;}
-				 | identifiantsVirgule dpegalStr expression ';' {;}
-				 | identifiantsVirgule type ';' {;}
-				 | identifiantsVirgule ':' constantStr expression ';' {;}
+				 | identifiantsVirgule ':' constantStr dpegalStr expression ';' {;}
 				 | identifiantsVirgule ':' constantStr type ';' {;}
 				 | identifiantsVirgule ':' constantStr ';' {;}
+				 | identifiantsVirgule ':' type dpegalStr expression ';' {;}
+				 | identifiantsVirgule ':' type ';' {;}				 
+				 | identifiantsVirgule ':' dpegalStr expression ';' {;}
 				 | identifiantsVirgule ':' ';' {;}
 				 ;
 
@@ -110,7 +110,7 @@ structInstruction   : etiquettes instruction    {;}
                     ;
 
 instruction : nullStr ';'                                            {;} 
-            | identifiants dpegalStr expression ';'                      {;}
+            | identifiants dpegalStr expression ';'                      {;} ////////
             | procedureCall                                         {;}
             | beginLoop instructions endLoop ';'                    {;}
             | beginWhile instructions endLoop ';'                   {;}
