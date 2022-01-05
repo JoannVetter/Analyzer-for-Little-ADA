@@ -29,10 +29,8 @@ line        : declaration               {;}
             | expression                {;}
             ;
 
-type : identifiant {;}
-	 | qualifIdentifiant {;}
-	 | identifiant rangeStr expression ptptStr expression {;}
-	 | qualifIdentifiant rangeStr expression ptptStr expression {;}
+type : identifiants {;}
+	 | identifiants rangeStr expression ptptStr expression {;}
 	 ;
 
 declarations : declaration '\n'declarations {;}
