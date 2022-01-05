@@ -6,42 +6,42 @@
 
 %%
 
-range       {return rangeStr;}
-\.\.        {return ptptStr;}
-type        {return typeStr;}
-subtype     {return subtypeStr;}
-is          {return isStr;}
-renames     {return renamesStr;}
-procedure   {return procedureStr;}
-function    {return functionStr;}
-return      {return returnStr;}
-begin       {return beginStr;}
-null        {return nullStr;}
-case        {return caseStr;}
-goto        {return gotoStr;}
-loop        {return loopStr;}
-\<\<        {return moinsmoinsStr;}
-\>\>        {return plusplusStr;}
-while       {return whileStr;}
-for         {return forStr;}
-in          {return inStr;}
-out         {return outStr;}
-reversed    {return reverseStr;}
-if          {return ifStr;}
-then        {return thenStr;}
-else        {return elseStr;}
-elsif       {return elsifStr;}
-when        {return whenStr;}
-=>          {return flecheStr;}
-others      {return othersStr;}
-exit        {return exitStr;}
-abs         {return absStr;}
-not         {return notStr;}
-:=          {return dpegalStr;}
-constant    {return constantStr;}
-:\n         {return dpsautlinStr;}
-and         {return andStr;}
-or          {return orStr;}
+(?i:range)       {return rangeStr;}
+(?i:\.\.)        {return ptptStr;}
+(?i:type)        {return typeStr;}
+(?i:subtype)     {return subtypeStr;}
+(?i:is)          {return isStr;}
+(?i:renames)     {return renamesStr;}
+(?i:procedure)   {return procedureStr;}
+(?i:function)    {return functionStr;}
+(?i:return)      {return returnStr;}
+(?i:begin)       {return beginStr;}
+(?i:null)        {return nullStr;}
+(?i:case)        {return caseStr;}
+(?i:goto)        {return gotoStr;}
+(?i:loop)        {return loopStr;}
+(?i:\<\<)        {return moinsmoinsStr;}
+(?i:\>\>)        {return plusplusStr;}
+(?i:while)       {return whileStr;}
+(?i:for)         {return forStr;}
+(?i:in)          {return inStr;}
+(?i:out)         {return outStr;}
+(?i:reversed)    {return reverseStr;}
+(?i:if)          {return ifStr;}
+(?i:then)        {return thenStr;}
+(?i:else)        {return elseStr;}
+(?i:elsif)       {return elsifStr;}
+(?i:when)        {return whenStr;}
+(?i:=>)          {return flecheStr;}
+(?i:others)      {return othersStr;}
+(?i:exit)        {return exitStr;}
+(?i:abs)         {return absStr;}
+(?i:not)         {return notStr;}
+(?i::=)          {return dpegalStr;}
+(?i:constant)    {return constantStr;}
+(?i::\n)         {return dpsautlinStr;}
+(?i:and)         {return andStr;}
+(?i:or)          {return orStr;}
 [+|-|*|/|**|=|/=|<=|>=|<|>|mod|rem|and|or|xor] {return symbole;}
 [a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*     {return identifiant;}
 [a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*(\.[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*)+     {return qualifIdentifiant;}
@@ -49,7 +49,8 @@ or          {return orStr;}
 [0-9](_[0-9]|[0-9])*(.[0-9](_[0-9]|[0-9])*)?([eE][+-]?[0-9](_[0-9]|[0-9])*)?    {return decConst;}
 \"(""|(\"\"|[^\n\"])*)\"    {return stringConst;}
 --.*\n                      ;
-[ \t\n]                     ;
+[ \t]                       ;
+\n                          ;
 .                           {ECHO; yyerror ("unexpected character");};
 
 
