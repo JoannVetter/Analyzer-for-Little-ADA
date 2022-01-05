@@ -29,10 +29,8 @@ line        : declaration               {;}
             | expression                {;}
             ;
 
-type : identifiant {;}
-	 | qualifIdentifiant {;}
-	 | identifiant rangeStr expression ptptStr expression {;}
-	 | qualifIdentifiant rangeStr expression ptptStr expression {;}
+type : identifiants {;}
+	 | identifiants rangeStr expression ptptStr expression {;}
 	 ;
 
 declarations : declaration '\n'declarations {;}
@@ -194,8 +192,8 @@ expressions : expression ',' expressions {;}
 			| expression				 {;}
 			;
 		
-identifiantsVirgule : identifiant ',' identifiants {;}
-			| identifiant				 {;}
+identifiantsVirgule : identifiant ',' identifiantsVirgule {;}
+			|identifiant {;}
 			;
 
 expression  : term                      {;}
@@ -209,9 +207,7 @@ expression  : term                      {;}
 			//et et ou coupe circuit pas compris mdr du coup il reste le then et le else
 			;
 
-term        : identifiant               {printf("identifiant");}
-            | qualifIdentifiant         {printf("qualifIdentifiant");}
-            | baseConst                 {printf("baseConst");}
+term        : baseConst                 {printf("baseConst");}
             | decConst                  {printf("decConst");}
             | stringConst               {printf("stringConst");}
             ;
