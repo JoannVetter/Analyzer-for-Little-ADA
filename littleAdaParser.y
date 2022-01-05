@@ -14,12 +14,10 @@ int yylex();
 %token returnStr beginStr nullStr caseStr gotoStr loopStr moinsmoinsStr plusplusStr 
 %token whileStr forStr inStr reverseStr endStr ifStr thenStr elseStr elsifStr
 %token whenStr flecheStr othersStr exitStr absStr notStr dpegalStr constantStr
-%token outStr dpsautlinStr
+%token outStr dpsautlinStr andStr orStr
 
-%left symbole
-%left '-'
-%left notStr
-%left absStr
+%left symbole '-' notStr absStr andStr thenStr
+%right orStr elseStr
 
 %%
 
@@ -208,6 +206,8 @@ expression  : absStr expression			{;}
 			| expression symbole expression {;}
 			| identifiants '('expressions')' {;}
 			| '('expression')' {;}
+			| expression andStr thenStr expression {;}
+			| expression orStr elseStr expression {;}
 			| baseConst                 {printf("baseConst");}
             | decConst                  {printf("decConst");}
             | stringConst               {printf("stringConst");}

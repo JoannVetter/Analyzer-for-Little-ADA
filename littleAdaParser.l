@@ -40,6 +40,8 @@ not         {return notStr;}
 :=          {return dpegalStr;}
 constant    {return constantStr;}
 :\n         {return dpsautlinStr;}
+and         {return andStr;}
+or          {return orStr;}
 [+|-|*|/|**|=|/=|<=|>=|<|>|mod|rem|and|or|xor] {return symbole;}
 [a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*     {return identifiant;}
 [a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*(\.[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*)+     {return qualifIdentifiant;}
