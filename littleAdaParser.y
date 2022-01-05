@@ -10,6 +10,12 @@ int yylex();
 %start file
 %token identifiant qualifIdentifiant baseConst decConst stringConst symbole
 
+%token rangeStr ptptStr typeStr subtypeStr isStr renamesStr procedureStr functionStr 
+%token returnStr beginStr nullStr caseStr gotoStr loopStr moinsmoinsStr plusplusStr 
+%token whileStr forStr inStr reverseStr endStr ifStr thenStr elseStr elsifStr
+%token whenStr flecheStr othersStr exitStr absStr notStr dpegalStr constantStr
+%token outStr
+
 %%
 
 file        : lines                     {;};
@@ -19,14 +25,14 @@ lines       : line '\n' lines           {;}
             ;
 
 line        : declaration               {;}
-            | structInstruction               {;}
+            | structInstruction         {;}
             | expression                {;}
             ;
 
 type : identifiant {;}
 	 | qualifIdentifiant {;}
-	 | identifiant 'range' expression '..' expression {;}
-	 | qualifIdentifiant 'range' expression '..' expression {;}
+	 | identifiant rangeStr expression ptptStr expression {;}
+	 | qualifIdentifiant rangeStr expression ptptStr expression {;}
 	 ;
 
 declarations : declaration '\n'declarations {;}
@@ -35,113 +41,113 @@ declarations : declaration '\n'declarations {;}
 			 ;
 
 declaration : declarationObjet                         {;}
-			| 'type' identifiant 'is range' expression '..' expression ';' {;}
-			| 'subtype' identifiant 'is' type ';' {;}
-			| identifiantsVirgule ':' type 'renames' qualifIdentifiant ';' {;}
-			| 'procedure' identifiant ';' {;}
-			| 'procedure' identifiant parametres ';' {;}
-			| 'function' identifiant 'return' identifiant ';' {;}
-			| 'function' identifiant 'return' qualifIdentifiant ';' {;}
-			| 'function' identifiant parametres 'return' identifiant ';' {;}
-			| 'function' identifiant parametres 'return' qualifIdentifiant ';' {;}
+			| typeStr identifiant isStr rangeStr  expression ptptStr expression ';' {;}
+			| subtypeStr identifiant isStr type ';' {;}
+			| identifiantsVirgule ':' type renamesStr qualifIdentifiant ';' {;}
+			| procedureStr identifiant ';' {;}
+			| procedureStr identifiant parametres ';' {;}
+			| functionStr identifiant returnStr identifiant ';' {;}
+			| functionStr identifiant returnStr qualifIdentifiant ';' {;}
+			| functionStr identifiant parametres returnStr identifiant ';' {;}
+			| functionStr identifiant parametres returnStr qualifIdentifiant ';' {;}
 			| definition {;}
 			;
 
-definition : 'procedure' identifiant 'is' declarations 'begin' instructionsSaut 'end;' {;}
-			| 'procedure' identifiant 'is' declarations 'begin' instructionsSaut 'end' identifiant ';' {;}
-			| 'procedure' identifiant parametres 'is' declarations 'begin' instructionsSaut 'end;' {;}
-			| 'procedure' identifiant parametres 'is' declarations 'begin' instructionsSaut 'end' identifiant ';' {;}
-			| 'function' identifiant 'return' identifiant 'is' declarations 'begin' instructionsSaut 'end;' {;}
-			| 'function' identifiant 'return' identifiant 'is' declarations 'begin' instructionsSaut 'end' identifiant ';' {;}
-			| 'function' identifiant 'return' qualifIdentifiant 'is' declarations 'begin' instructionsSaut 'end;' {;}
-			| 'function' identifiant 'return' qualifIdentifiant 'is' declarations 'begin' instructionsSaut 'end' identifiant ';' {;}
-			| 'function' identifiant parametres 'return' identifiant 'is' declarations 'begin' instructionsSaut 'end;' {;}
-			| 'function' identifiant parametres 'return' identifiant 'is' declarations 'begin' instructionsSaut 'end' identifiant ';' {;}
-			| 'function' identifiant parametres 'return' qualifIdentifiant 'is' declarations 'begin' instructionsSaut 'end;' {;}
-			| 'function' identifiant parametres 'return' qualifIdentifiant 'is' declarations 'begin' instructionsSaut 'end' identifiant ';' {;}
+definition : procedureStr identifiant isStr declarations beginStr instructionsSaut endStr ';' {;}
+			| procedureStr identifiant isStr declarations beginStr instructionsSaut endStr identifiant ';' {;}
+			| procedureStr identifiant parametres isStr declarations beginStr instructionsSaut endStr ';' {;}
+			| procedureStr identifiant parametres isStr declarations beginStr instructionsSaut endStr identifiant ';' {;}
+			| functionStr identifiant returnStr identifiant isStr declarations beginStr instructionsSaut endStr ';' {;}
+			| functionStr identifiant returnStr identifiant isStr declarations beginStr instructionsSaut endStr identifiant ';' {;}
+			| functionStr identifiant returnStr qualifIdentifiant isStr declarations beginStr instructionsSaut endStr ';' {;}
+			| functionStr identifiant returnStr qualifIdentifiant isStr declarations beginStr instructionsSaut endStr identifiant ';' {;}
+			| functionStr identifiant parametres returnStr identifiant isStr declarations beginStr instructionsSaut endStr ';' {;}
+			| functionStr identifiant parametres returnStr identifiant isStr declarations beginStr instructionsSaut endStr identifiant ';' {;}
+			| functionStr identifiant parametres returnStr qualifIdentifiant isStr declarations beginStr instructionsSaut endStr ';' {;}
+			| functionStr identifiant parametres returnStr qualifIdentifiant isStr declarations beginStr instructionsSaut endStr identifiant ';' {;}
 			;
 
 parametre : identifiant {;}
-		  | identifiant ':' mode identifiant {;}
-		  | identifiant ':' mode qualifIdentifiant {;} 
+		  | identifiant ':' mode identifiants {;}
+		  | identifiant ':' identifiants {;}
+
           ;
 
 parametres : parametre ',' parametres {;}
 		   | parametre {;}
 		   ;
 
-mode : 'in' {;}
-	 | 'in out' {;}
-	 | 'out' {;}
-	 | '' {;}
+mode : inStr {;}
+	 | inStr outStr {;}
+	 | outStr {;}
 	 ;
 
-declarationObjet : identifiantsVirgule ': constant' type ':=' expression ';' {;}
-				 | identifiantsVirgule type ':=' expression ';' {;}
-				 | identifiantsVirgule ':=' expression ';' {;}
+declarationObjet : identifiantsVirgule ':' constantStr type dpegalStr expression ';' {;}
+				 | identifiantsVirgule type dpegalStr expression ';' {;}
+				 | identifiantsVirgule dpegalStr expression ';' {;}
 				 | identifiantsVirgule type ';' {;}
-				 | identifiantsVirgule ': constant' expression ';' {;}
-				 | identifiantsVirgule ': constant' type ';' {;}
-				 | identifiantsVirgule ': constant' ';' {;}
-				 | identifiantsVirgule ': ;' {;}
+				 | identifiantsVirgule ':' constantStr expression ';' {;}
+				 | identifiantsVirgule ':' constantStr type ';' {;}
+				 | identifiantsVirgule ':' constantStr ';' {;}
+				 | identifiantsVirgule ':' ';' {;}
 				 ;
 
-etiquettes  : '<<' identifiant '>>' etiquettes  {;}
-            | '<<' identifiant '>>'             {;}
+etiquettes  : moinsmoinsStr identifiant plusplusStr etiquettes  {;}
+            | moinsmoinsStr identifiant plusplusStr             {;}
             ;
 
 structInstruction   : etiquettes instruction    {;}
                     | instruction               {;}
                     ;
 
-instruction : 'null' ';'                                            {;} 
-            | identifiants ':=' expression ';'                      {;}
+instruction : nullStr ';'                                            {;} 
+            | identifiants dpegalStr expression ';'                      {;}
             | procedureCall                                         {;}
             | beginLoop instructions endLoop ';'                    {;}
             | beginWhile instructions endLoop ';'                   {;}
             | beginFor instructions endLoop ';'                     {;}
             | conditionnelle                                        {;}
-            | 'case' expression 'is' alternatives 'end case' ';'    {;}
-            | 'goto' identifiant ';'                                {;}
+            | caseStr expression isStr alternatives endStr caseStr ';'    {;}
+            | gotoStr identifiant ';'                                {;}
             | exitCase                                              {;}
-            | 'return' ';'                                          {;}
-            | 'return' expression ';'                               {;}
+            | returnStr ';'                                          {;}
+            | returnStr expression ';'                               {;}
             ;
 
-beginLoop   : identifiant ':' 'loop'    {;}
-            | 'loop'                    {;}
+beginLoop   : identifiant ':' loopStr    {;}
+            | loopStr                    {;}
             ;
 
-endLoop     : 'end loop' identifiant    {;}
-            | 'end loop'                {;}
+endLoop     : endStr loopStr identifiant    {;}
+            | endStr loopStr                {;}
             ;
 
-beginWhile  : identifiant ':' 'while' expression 'loop'     {;}
-            | 'while' expression 'loop'                     {;}
+beginWhile  : identifiant ':' whileStr expression loopStr     {;}
+            | whileStr expression loopStr                     {;}
             ;
 
-beginFor    : identifiant ':' 'for' forCondition 'loop'     {;}
-            | 'for' forCondition 'loop'                     {;}
+beginFor    : identifiant ':' forStr forCondition loopStr     {;}
+            | forStr forCondition loopStr                     {;}
             ;
 
-forCondition    : identifiant 'in' 'reverse' expression '..' expression {;}
-                | identifiant 'in' expression '..' expression           {;}
-                | identifiant 'in' 'reverse' identifiants               {;} // identifiants = type
-                | identifiant 'in' identifiants                          {;} // identifiants = type
+forCondition    : identifiant inStr reverseStr expression ptptStr expression {;}
+                | identifiant inStr expression ptptStr expression           {;}
+                | identifiant inStr reverseStr identifiants               {;} // identifiants = type
+                | identifiant inStr identifiants                          {;} // identifiants = type
                 ;
 
-conditionnelle  : 'if' expression 'then' instructions elsifs 'else' instructions 'end if' ';'   {;}
-                | 'if' expression 'then' instructions 'else' instructions 'end if' ';'          {;}
-                | 'if' expression 'then' instructions elsifs 'end if' ';'                       {;}
-                | 'if' expression 'then' instructions 'end if' ';'                              {;}
+conditionnelle  : ifStr expression thenStr instructions elsifs elseStr instructions endStr ifStr ';'   {;}
+                | ifStr expression thenStr instructions elseStr instructions endStr ifStr ';'          {;}
+                | ifStr expression thenStr instructions elsifs endStr ifStr ';'                       {;}
+                | ifStr expression thenStr instructions endStr ifStr ';'                              {;}
                 ;
 
-elsifs  : 'elsif' expression 'then' instructions elsifs {;}
-        | 'elsif' expression 'then' instructions        {;}
+elsifs  : elsifStr expression thenStr instructions elsifs {;}
+        | elsifStr expression thenStr instructions        {;}
         ;
 
-alternatives    : 'when' multChoix '=>' instructions alternatives   {;}
-                | 'when' multChoix '=>' instructions                {;}
+alternatives    : whenStr multChoix flecheStr instructions alternatives   {;}
+                | whenStr multChoix flecheStr instructions                {;}
                 ;
 
 multChoix   : choix '|' multChoix   {;}
@@ -149,14 +155,14 @@ multChoix   : choix '|' multChoix   {;}
             ;
 
 choix   : expression                    {;}
-        | expression '..' expression    {;}
-        | 'others'                      {;}
+        | expression ptptStr expression    {;}
+        | othersStr                      {;}
         ;
 
-exitCase    : 'exit' identifiant 'when' expression ';'  {;}
-            | 'exit' identifiant ';'                    {;}
-            | 'exit' 'when' expression ';'              {;}
-            | 'exit' ';'                                {;}
+exitCase    : exitStr identifiant whenStr expression ';'  {;}
+            | exitStr identifiant ';'                    {;}
+            | exitStr whenStr expression ';'              {;}
+            | exitStr ';'                                {;}
 
 instructions    : instruction instructions          {;}
                 | instruction                       {;}
@@ -182,9 +188,9 @@ identifiantsVirgule : identifiant ',' identifiants {;}
 			;
 
 expression  : term                      {;}
-			| 'abs ' expression			{;}
-			| 'not ' expression			{;}
-			| '- ' expression			{;}
+			| absStr expression			{;}
+			| notStr expression			{;}
+			| '-' expression			{;}
 			| expression symbole expression {;}
 			| identifiant '('expressions')' {;}
 			| qualifIdentifiant '('expressions')' {;}
