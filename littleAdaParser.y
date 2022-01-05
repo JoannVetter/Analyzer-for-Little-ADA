@@ -14,7 +14,7 @@ int yylex();
 %token returnStr beginStr nullStr caseStr gotoStr loopStr moinsmoinsStr plusplusStr 
 %token whileStr forStr inStr reverseStr endStr ifStr thenStr elseStr elsifStr
 %token whenStr flecheStr othersStr exitStr absStr notStr dpegalStr constantStr
-%token outStr
+%token outStr dpsautlinStr
 
 %left symbole
 %left '-'
@@ -128,19 +128,19 @@ instruction : nullStr ';'                                            {;}
             | returnStr expression ';'                               {;}
             ;
 
-beginLoop   : identifiant ':' loopStr    {;}
-            | loopStr                    {;}
+beginLoop   : identifiant dpsautlinStr loopStr	{;}
+            | loopStr                  		{;}
             ;
 
 endLoop     : endStr loopStr identifiant    {;}
             | endStr loopStr                {;}
             ;
 
-beginWhile  : identifiant ':' whileStr expression loopStr     {;}
+beginWhile  : identifiant dpsautlinStr whileStr expression loopStr     {;}
             | whileStr expression loopStr                     {;}
             ;
 
-beginFor    : identifiant ':' forStr forCondition loopStr     {;}
+beginFor    : identifiant dpsautlinStr forStr forCondition loopStr     {;}
             | forStr forCondition loopStr                     {;}
             ;
 
