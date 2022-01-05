@@ -64,18 +64,18 @@ definition : procedureStr identifiant isStr declarations beginStr instructionsSa
 			| functionStr identifiant parametres returnStr identifiant isStr declarations beginStr instructionsSaut endStr identifiant ';' {;}
 			| functionStr identifiant parametres returnStr qualifIdentifiant isStr declarations beginStr instructionsSaut endStr ';' {;}
 			| functionStr identifiant parametres returnStr qualifIdentifiant isStr declarations beginStr instructionsSaut endStr identifiant ';' {;}
-			| procedureStr identifiant isStr  beginStr instructionsSaut endStr ';' {;}
-			| procedureStr identifiant isStr  beginStr instructionsSaut endStr identifiant ';' {;}
-			| procedureStr identifiant parametres isStr  beginStr instructionsSaut endStr ';' {;}
-			| procedureStr identifiant parametres isStr  beginStr instructionsSaut endStr identifiant ';' {;}
-			| functionStr identifiant returnStr identifiant isStr  beginStr instructionsSaut endStr ';' {;}
-			| functionStr identifiant returnStr identifiant isStr  beginStr instructionsSaut endStr identifiant ';' {;}
-			| functionStr identifiant returnStr qualifIdentifiant isStr  beginStr instructionsSaut endStr ';' {;}
-			| functionStr identifiant returnStr qualifIdentifiant isStr  beginStr instructionsSaut endStr identifiant ';' {;}
-			| functionStr identifiant parametres returnStr identifiant isStr  beginStr instructionsSaut endStr ';' {;}
-			| functionStr identifiant parametres returnStr identifiant isStr  beginStr instructionsSaut endStr identifiant ';' {;}
-			| functionStr identifiant parametres returnStr qualifIdentifiant isStr  beginStr instructionsSaut endStr ';' {;}
-			| functionStr identifiant parametres returnStr qualifIdentifiant isStr  beginStr instructionsSaut endStr identifiant ';' {;}
+			| procedureStr identifiant isStr beginStr instructionsSaut endStr ';' {;}
+			| procedureStr identifiant isStr beginStr instructionsSaut endStr identifiant ';' {;}
+			| procedureStr identifiant parametres isStr beginStr instructionsSaut endStr ';' {;}
+			| procedureStr identifiant parametres isStr beginStr instructionsSaut endStr identifiant ';' {;}
+			| functionStr identifiant returnStr identifiant isStr beginStr instructionsSaut endStr ';' {;}
+			| functionStr identifiant returnStr identifiant isStr beginStr instructionsSaut endStr identifiant ';' {;}
+			| functionStr identifiant returnStr qualifIdentifiant isStr beginStr instructionsSaut endStr ';' {;}
+			| functionStr identifiant returnStr qualifIdentifiant isStr beginStr instructionsSaut endStr identifiant ';' {;}
+			| functionStr identifiant parametres returnStr identifiant isStr beginStr instructionsSaut endStr ';' {;}
+			| functionStr identifiant parametres returnStr identifiant isStr beginStr instructionsSaut endStr identifiant ';' {;}
+			| functionStr identifiant parametres returnStr qualifIdentifiant isStr beginStr instructionsSaut endStr ';' {;}
+			| functionStr identifiant parametres returnStr qualifIdentifiant isStr beginStr instructionsSaut endStr identifiant ';' {;}
 			;
 
 parametre : identifiant {;}

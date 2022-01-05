@@ -20,8 +20,13 @@ null        {return nullStr;}
 case        {return caseStr;}
 goto        {return gotoStr;}
 loop        {return loopStr;}
+<<<<<<< HEAD
 \<\<          {return moinsmoinsStr;}
 \>\>          {return plusplusStr;}
+=======
+\<\<        {return moinsmoinsStr;}
+\>\>        {return plusplusStr;}
+>>>>>>> b76547d7fc6396534cd9b892e08a5a61e70b5319
 while       {return whileStr;}
 for         {return forStr;}
 in          {return inStr;}
