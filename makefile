@@ -10,8 +10,12 @@ littleAdaParser.tab.c: littleAdaParser.y
 debug:
 	bison -d littleAdaParser.y -Wconflicts-sr -Wconflicts-rr -Wcounterexamples
 
+run:
+	chmod +x tests_ok.sh && ./tests_ok.sh > tests_results
+
 clean:
 	rm lex.yy.c || true
 	rm littleAdaParser.tab.c || true
 	rm littleAdaParser.tab.h ||true
 	rm littleAdaParser || true
+	rm tests_results || true
