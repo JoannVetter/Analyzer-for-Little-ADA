@@ -16,6 +16,11 @@ int yylex();
 %token whenStr flecheStr othersStr exitStr absStr notStr dpegalStr constantStr
 %token outStr
 
+%left symbole
+%left '-'
+%left notStr
+%left absStr
+
 %%
 
 file        : lines                     {;};
@@ -208,7 +213,6 @@ expression  : absStr expression			{;}
             | stringConst               {printf("stringConst");}
 			//et et ou coupe circuit pas compris mdr du coup il reste le then et le else
 			;
-
 
 /* line    : assignment ';'		{;}
 		| exit_command ';'		{exit(EXIT_SUCCESS);}
