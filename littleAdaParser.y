@@ -1,6 +1,7 @@
 %{
 void yyerror (char *s);
 int yylex();
+int yydebug = 1;
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -14,10 +15,11 @@ int yylex();
 %token returnStr beginStr nullStr caseStr gotoStr loopStr moinsmoinsStr plusplusStr 
 %token whileStr forStr inStr reverseStr endStr ifStr thenStr elseStr elsifStr
 %token whenStr flecheStr othersStr exitStr absStr notStr dpegalStr constantStr
-%token outStr dpsautlinStr andStr orStr
+%token outStr dpsautlinStr andStr orStr ptvirStr dpStr virStr barreStr pargStr
+%token pardStr xorStr
 
-%left symbole '-' notStr absStr andStr thenStr
-%right orStr elseStr
+%left symbole tiretStr notStr absStr andStr thenStr
+%right orStr elseStr xorStr
 
 %%
 
@@ -36,72 +38,83 @@ type : identifiants {;}
 	 | identifiants rangeStr expression ptptStr expression {;}
 	 ;
 
-declarations : declaration '\n'declarations {;}
+declarations : declaration declarations {;}
 			 | declaration {;}
 			 ;
 
 declaration : declarationObjet                         {;}
-			| typeStr identifiant isStr rangeStr  expression ptptStr expression ';' {;}
-			| subtypeStr identifiant isStr type ';' {;}
-			| identifiantsVirgule ':' type renamesStr qualifIdentifiant ';' {;}
-			| procedureStr identifiant ';' {;}
-			| procedureStr identifiant parametres ';' {;}
-			| functionStr identifiant returnStr identifiant ';' {;}
-			| functionStr identifiant returnStr qualifIdentifiant ';' {;}
-			| functionStr identifiant parametres returnStr identifiant ';' {;}
-			| functionStr identifiant parametres returnStr qualifIdentifiant ';' {;}
+			| typeStr identifiant isStr rangeStr expression ptptStr expression ptvirStr {;}
+			| subtypeStr identifiant isStr type ptvirStr {;}
+			| identifiantsVirgule dpStr type renamesStr qualifIdentifiant ptvirStr {;}
+			| procedureStr identifiant ptvirStr {;}
+			| procedureStr identifiant pargStr parametres_def pardStr ptvirStr {;}
+			| procedureStr identifiant pargStr parametres_def pardStr isStr declarations beginStr instructionsSaut endStr ptvirStr{;}
+			| procedureStr identifiant pargStr parametres_def pardStr isStr declarations beginStr instructionsSaut endStr identifiant ptvirStr{;}
+			| procedureStr identifiant pargStr parametres_def pardStr isStr beginStr instructionsSaut endStr ptvirStr{;}
+			| procedureStr identifiant pargStr parametres_def pardStr isStr beginStr instructionsSaut endStr identifiant ptvirStr{;}
+			| functionStr identifiant returnStr identifiant ptvirStr {;}
+			| functionStr identifiant returnStr qualifIdentifiant ptvirStr {;}
+			| functionStr identifiant pargStr parametres pardStr returnStr identifiant ptvirStr {;}
+			| functionStr identifiant pargStr parametres pardStr returnStr qualifIdentifiant ptvirStr {;}
+			| functionStr identifiant pargStr parametres pardStr returnStr identifiant isStr beginStr instructionsSaut endStr ptvirStr {;}
+			| functionStr identifiant pargStr parametres pardStr returnStr qualifIdentifiant isStr beginStr instructionsSaut endStr ptvirStr {;}
+			| functionStr identifiant pargStr parametres pardStr returnStr identifiant isStr beginStr instructionsSaut endStr identifiant ptvirStr {;}
 			| definition {;}
 			;
 
-definition : procedureStr identifiant isStr declarations beginStr instructionsSaut endStr ';' {;}
-			| procedureStr identifiant isStr declarations beginStr instructionsSaut endStr identifiant ';' {;}
-			| procedureStr identifiant parametres isStr declarations beginStr instructionsSaut endStr ';' {;}
-			| procedureStr identifiant parametres isStr declarations beginStr instructionsSaut endStr identifiant ';' {;}
-			| functionStr identifiant returnStr identifiant isStr declarations beginStr instructionsSaut endStr ';' {;}
-			| functionStr identifiant returnStr identifiant isStr declarations beginStr instructionsSaut endStr identifiant ';' {;}
-			| functionStr identifiant returnStr qualifIdentifiant isStr declarations beginStr instructionsSaut endStr ';' {;}
-			| functionStr identifiant returnStr qualifIdentifiant isStr declarations beginStr instructionsSaut endStr identifiant ';' {;}
-			| functionStr identifiant parametres returnStr identifiant isStr declarations beginStr instructionsSaut endStr ';' {;}
-			| functionStr identifiant parametres returnStr identifiant isStr declarations beginStr instructionsSaut endStr identifiant ';' {;}
-			| functionStr identifiant parametres returnStr qualifIdentifiant isStr declarations beginStr instructionsSaut endStr ';' {;}
-			| functionStr identifiant parametres returnStr qualifIdentifiant isStr declarations beginStr instructionsSaut endStr identifiant ';' {;}
-			| procedureStr identifiant isStr beginStr instructionsSaut endStr ';' {;}
-			| procedureStr identifiant isStr beginStr instructionsSaut endStr identifiant ';' {;}
-			| procedureStr identifiant parametres isStr beginStr instructionsSaut endStr ';' {;}
-			| procedureStr identifiant parametres isStr beginStr instructionsSaut endStr identifiant ';' {;}
-			| functionStr identifiant returnStr identifiant isStr beginStr instructionsSaut endStr ';' {;}
-			| functionStr identifiant returnStr identifiant isStr beginStr instructionsSaut endStr identifiant ';' {;}
-			| functionStr identifiant returnStr qualifIdentifiant isStr beginStr instructionsSaut endStr ';' {;}
-			| functionStr identifiant returnStr qualifIdentifiant isStr beginStr instructionsSaut endStr identifiant ';' {;}
-			| functionStr identifiant parametres returnStr identifiant isStr beginStr instructionsSaut endStr ';' {;}
-			| functionStr identifiant parametres returnStr identifiant isStr beginStr instructionsSaut endStr identifiant ';' {;}
-			| functionStr identifiant parametres returnStr qualifIdentifiant isStr beginStr instructionsSaut endStr ';' {;}
-			| functionStr identifiant parametres returnStr qualifIdentifiant isStr beginStr instructionsSaut endStr identifiant ';' {;}
+definition : procedureStr identifiant isStr declarations beginStr instructionsSaut endStr ptvirStr {;}
+			| procedureStr identifiant isStr declarations beginStr instructionsSaut endStr identifiant ptvirStr {;}
+			| procedureStr identifiant parametres isStr declarations beginStr instructionsSaut endStr ptvirStr {;}
+			| procedureStr identifiant parametres isStr declarations beginStr instructionsSaut endStr identifiant ptvirStr {;}
+			| functionStr identifiant returnStr identifiant isStr declarations beginStr instructionsSaut endStr ptvirStr {;}
+			| functionStr identifiant returnStr identifiant isStr declarations beginStr instructionsSaut endStr identifiant ptvirStr {;}
+			| functionStr identifiant returnStr qualifIdentifiant isStr declarations beginStr instructionsSaut endStr ptvirStr {;}
+			| functionStr identifiant returnStr qualifIdentifiant isStr declarations beginStr instructionsSaut endStr identifiant ptvirStr {;}
+			| functionStr identifiant parametres returnStr identifiant isStr declarations beginStr instructionsSaut endStr ptvirStr {;}
+			| functionStr identifiant parametres returnStr identifiant isStr declarations beginStr instructionsSaut endStr identifiant ptvirStr {;}
+			| functionStr identifiant parametres returnStr qualifIdentifiant isStr declarations beginStr instructionsSaut endStr ptvirStr {;}
+			| functionStr identifiant parametres returnStr qualifIdentifiant isStr declarations beginStr instructionsSaut endStr identifiant ptvirStr {;}
+			| procedureStr identifiant isStr beginStr instructionsSaut endStr ptvirStr {;}
+			| procedureStr identifiant isStr beginStr instructionsSaut endStr identifiant ptvirStr {;}
+			| procedureStr identifiant parametres isStr beginStr instructionsSaut endStr ptvirStr {;}
+			| procedureStr identifiant parametres isStr beginStr instructionsSaut endStr identifiant ptvirStr {;}
+			| functionStr identifiant returnStr identifiant isStr beginStr instructionsSaut endStr ptvirStr {;}
+			| functionStr identifiant returnStr identifiant isStr beginStr instructionsSaut endStr identifiant ptvirStr {;}
+			| functionStr identifiant returnStr qualifIdentifiant isStr beginStr instructionsSaut endStr ptvirStr {;}
+			| functionStr identifiant returnStr qualifIdentifiant isStr beginStr instructionsSaut endStr identifiant ptvirStr {;}
+			| functionStr identifiant parametres returnStr identifiant isStr beginStr instructionsSaut endStr ptvirStr {;}
+			| functionStr identifiant parametres returnStr identifiant isStr beginStr instructionsSaut endStr identifiant ptvirStr {;}
+			| functionStr identifiant parametres returnStr qualifIdentifiant isStr beginStr instructionsSaut endStr ptvirStr {;}
+			| functionStr identifiant parametres returnStr qualifIdentifiant isStr beginStr instructionsSaut endStr identifiant ptvirStr {;}
 			;
 
 parametre : identifiant {;}
-		  | identifiant ':' mode identifiants {;}
-		  | identifiant ':' identifiants {;}
+		  | identifiant dpStr mode identifiants {;}
+		  | identifiant dpStr identifiants {;}
 
           ;
 
-parametres : parametre ',' parametres {;}
+parametres : parametre virStr parametres {;}
 		   | parametre {;}
 		   ;
+
+parametres_def : parametre ptvirStr parametres_def {;}
+				 | parametre {;}
+				 ;
 
 mode : inStr {;}
 	 | inStr outStr {;}
 	 | outStr {;}
 	 ;
 
-declarationObjet : identifiantsVirgule ':' constantStr type dpegalStr expression ';' {;}
-				 | identifiantsVirgule ':' constantStr dpegalStr expression ';' {;}
-				 | identifiantsVirgule ':' constantStr type ';' {;}
-				 | identifiantsVirgule ':' constantStr ';' {;}
-				 | identifiantsVirgule ':' type dpegalStr expression ';' {;}
-				 | identifiantsVirgule ':' type ';' {;}				 
-				 | identifiantsVirgule ':' dpegalStr expression ';' {;}
-				 | identifiantsVirgule ':' ';' {;}
+declarationObjet : identifiantsVirgule dpStr constantStr type dpegalStr expression ptvirStr {;}
+				 | identifiantsVirgule dpStr constantStr dpegalStr expression ptvirStr {;}
+				 | identifiantsVirgule dpStr constantStr type ptvirStr {;}
+				 | identifiantsVirgule dpStr constantStr ptvirStr {;}
+				 | identifiantsVirgule dpStr type dpegalStr expression ptvirStr {;}
+				 | identifiantsVirgule dpStr type ptvirStr {;}				 
+				 | identifiantsVirgule dpStr dpegalStr expression ptvirStr {;}
+				 | identifiantsVirgule dpStr ptvirStr {;}
 				 ;
 
 etiquettes  : moinsmoinsStr identifiant plusplusStr etiquettes  {;}
@@ -112,18 +125,18 @@ structInstruction   : etiquettes instruction    {;}
                     | instruction               {;}
                     ;
 
-instruction : nullStr ';'                                            {;} 
-            | identifiants dpegalStr expression ';'                      {;}
+instruction : nullStr ptvirStr                                            {;} 
+            | identifiants dpegalStr expression ptvirStr                      {;}
             | procedureCall                                         {;}
-            | beginLoop instructions endLoop ';'                    {;}
-            | beginWhile instructions endLoop ';'                   {;}
-            | beginFor instructions endLoop ';'                     {;}
+            | beginLoop instructions endLoop ptvirStr                    {;}
+            | beginWhile instructions endLoop ptvirStr                   {;}
+            | beginFor instructions endLoop ptvirStr                     {;}
             | conditionnelle                                        {;}
-            | caseStr expression isStr alternatives endStr caseStr ';'    {;}
-            | gotoStr identifiant ';'                                {;}
+            | caseStr expression isStr alternatives endStr caseStr ptvirStr    {;}
+            | gotoStr identifiant ptvirStr                                {;}
             | exitCase                                              {;}
-            | returnStr ';'                                          {;}
-            | returnStr expression ';'                               {;}
+            | returnStr ptvirStr                                          {;}
+            | returnStr expression ptvirStr                               {;}
             ;
 
 beginLoop   : identifiant dpsautlinStr loopStr	{;}
@@ -148,10 +161,10 @@ forCondition    : identifiant inStr reverseStr expression ptptStr expression {;}
                 | identifiant inStr type                          {;} 
                 ;
 
-conditionnelle  : ifStr expression thenStr instructions elsifs elseStr instructions endStr ifStr ';'   {;}
-                | ifStr expression thenStr instructions elseStr instructions endStr ifStr ';'          {;}
-                | ifStr expression thenStr instructions elsifs endStr ifStr ';'                       {;}
-                | ifStr expression thenStr instructions endStr ifStr ';'                              {;}
+conditionnelle  : ifStr expression thenStr instructions elsifs elseStr instructions endStr ifStr ptvirStr   {;}
+                | ifStr expression thenStr instructions elseStr instructions endStr ifStr ptvirStr          {;}
+                | ifStr expression thenStr instructions elsifs endStr ifStr ptvirStr                       {;}
+                | ifStr expression thenStr instructions endStr ifStr ptvirStr                              {;}
                 ;
 
 elsifs  : elsifStr expression thenStr instructions elsifs {;}
@@ -162,7 +175,7 @@ alternatives    : whenStr multChoix flecheStr instructions alternatives   {;}
                 | whenStr multChoix flecheStr instructions                {;}
                 ;
 
-multChoix   : choix '|' multChoix   {;}
+multChoix   : choix barreStr multChoix   {;}
             | choix                 {;}
             ;
 
@@ -171,66 +184,54 @@ choix   : expression                    {;}
         | othersStr                      {;}
         ;
 
-exitCase    : exitStr identifiant whenStr expression ';'  {;}
-            | exitStr identifiant ';'                    {;}
-            | exitStr whenStr expression ';'              {;}
-            | exitStr ';'                                {;}
+exitCase    : exitStr identifiant whenStr expression ptvirStr  {;}
+            | exitStr identifiant ptvirStr                    {;}
+            | exitStr whenStr expression ptvirStr              {;}
+            | exitStr ptvirStr                                {;}
 
-instructions    : instruction instructions          {;}
-                | instruction                       {;}
+instructions    : structInstruction instructions          {;}
+                | structInstruction                       {;}
                 ;
 
-procedureCall   : identifiants ';'              {;}
-                | identifiants '(' expressions ')' ';' {;}
+procedureCall   : identifiants ptvirStr              {printf("procedureCall\n");}
+                | identifiants pargStr expressions pardStr  ptvirStr {;}
                 ;
 
 identifiants    : identifiant           {;}
                 | qualifIdentifiant     {;}
 
-instructionsSaut : instruction '\n' instructions {;}
-			 | instruction {;}
+instructionsSaut : structInstruction instructions {;}
+			 	 | structInstruction {;}
 			 ;
 
-expressions : expression ',' expressions {;}
+expressions : expression virStr expressions {;}
 			| expression				 {;}
 			;
 
 		
-identifiantsVirgule : identifiant ',' identifiantsVirgule {;}
+identifiantsVirgule : identifiant virStr identifiantsVirgule {;}
 			| identifiant				 {;}
 			;
 
 expression  : absStr expression			{;}
 			| notStr expression			{;}
-			| '-' expression			{;}
+			| tiretStr expression			{;}
 			| expression symbole expression {;}
-			| identifiants '('expressions')' {;}
-			| '('expression')' {;}
-			| expression andStr thenStr expression {;}
+			| identifiants pargStr expressions pardStr  {;}
+			| pargStr expression pardStr  {;}
+			| expression andStr expression {;}
 			| expression orStr elseStr expression {;}
-			| baseConst                 {printf("baseConst");}
-            | decConst                  {printf("decConst");}
-            | stringConst               {printf("stringConst");}
-			//et et ou coupe circuit pas compris mdr du coup il reste le then et le else
+			| expression orStr expression {;}
+			| expression xorStr expression {;}
+			| expression andStr thenStr expression {;}
+			| expression tiretStr expression {;}
+			| baseConst                 {;}
+            | decConst                  {;}
+            | stringConst               {;}
+			| identifiants				{;}
 			;
 
-/* line    : assignment ';'		{;}
-		| exit_command ';'		{exit(EXIT_SUCCESS);}
-		| print exp ';'			{printf("Printing %d\n", $2);}
-		| line assignment ';'	{;}
-		| line print exp ';'	{printf("Printing %d\n", $3);}
-		| line exit_command ';'	{exit(EXIT_SUCCESS);}
-        ;
 
-assignment : identifier '=' exp  { updateSymbolVal($1,$3); }
-			;
-exp    	: term                  {$$ = $1;}
-       	| exp '+' term          {$$ = $1 + $3;}
-       	| exp '-' term          {$$ = $1 - $3;}
-       	;
-term   	: number                {$$ = $1;}
-		| identifier			{$$ = symbolVal($1);} 
-        ; */
 
 %%                     /* C code */
 

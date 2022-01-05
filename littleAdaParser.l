@@ -2,55 +2,70 @@
     #include "littleAdaParser.tab.h"
     void yyerror (char *s);
     int yylex();
+    int line_num = 1;
 %}
 
 %%
-
-(?i:range)       {return rangeStr;}
-(?i:\.\.)        {return ptptStr;}
-(?i:type)        {return typeStr;}
-(?i:subtype)     {return subtypeStr;}
-(?i:is)          {return isStr;}
-(?i:renames)     {return renamesStr;}
-(?i:procedure)   {return procedureStr;}
-(?i:function)    {return functionStr;}
-(?i:return)      {return returnStr;}
-(?i:begin)       {return beginStr;}
-(?i:null)        {return nullStr;}
-(?i:case)        {return caseStr;}
-(?i:goto)        {return gotoStr;}
-(?i:loop)        {return loopStr;}
-(?i:\<\<)        {return moinsmoinsStr;}
-(?i:\>\>)        {return plusplusStr;}
-(?i:while)       {return whileStr;}
-(?i:for)         {return forStr;}
-(?i:in)          {return inStr;}
-(?i:out)         {return outStr;}
-(?i:reversed)    {return reverseStr;}
-(?i:if)          {return ifStr;}
-(?i:then)        {return thenStr;}
-(?i:else)        {return elseStr;}
-(?i:elsif)       {return elsifStr;}
-(?i:when)        {return whenStr;}
-(?i:=>)          {return flecheStr;}
-(?i:others)      {return othersStr;}
-(?i:exit)        {return exitStr;}
-(?i:abs)         {return absStr;}
-(?i:not)         {return notStr;}
-(?i::=)          {return dpegalStr;}
-(?i:constant)    {return constantStr;}
-(?i::\n)         {return dpsautlinStr;}
-(?i:and)         {return andStr;}
-(?i:or)          {return orStr;}
-[+|-|*|/|**|=|/=|<=|>=|<|>|mod|rem|and|or|xor] {return symbole;}
-[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*     {return identifiant;}
-[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*(\.[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*)+     {return qualifIdentifiant;}
-[0-9](_[0-9]|[0-9])*#[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*(\.[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*)?#([eE][+-]?[0-9](_[0-9]|[0-9])*)?     {return baseConst;}
-[0-9](_[0-9]|[0-9])*(.[0-9](_[0-9]|[0-9])*)?([eE][+-]?[0-9](_[0-9]|[0-9])*)?    {return decConst;}
-\"(""|(\"\"|[^\n\"])*)\"    {return stringConst;}
---.*\n                      ;
+\;               {printf ("ptVir \n"); return ptvirStr;}
+\:               {printf ("dp \n"); return dpStr;}
+,                {printf ("vir \n"); return virStr;}
+\|                {printf ("barre \n");return barreStr;}
+\(                {printf ("parg \n"); return pargStr;}
+\)                {printf ("pard \n"); return pardStr;}
+-                {printf ("tiret \n"); return tiretStr;}
+(?i:range)       {printf ("range\n");return rangeStr;}
+(?i:\.\.)        {printf ("..\n");return ptptStr;}
+(?i:type)        {printf ("type\n");return typeStr;}
+(?i:subtype)     {printf ("subtype\n");return subtypeStr;}
+(?i:is)          {printf ("is\n");return isStr;}
+(?i:renames)     {printf ("renames\n");return renamesStr;}
+(?i:procedure)   {printf ("procedure\n");return procedureStr;}
+(?i:function)    {printf ("function\n");return functionStr;}
+(?i:return)      {printf ("return\n");return returnStr;}
+(?i:begin)       {printf ("begin\n");return beginStr;}
+(?i:null)        {printf ("null\n");return nullStr;}
+(?i:case)        {printf ("case\n");return caseStr;}
+(?i:goto)        {printf ("goto \n");return gotoStr;}
+(?i:loop)        {printf ("loop \n");return loopStr;}
+\<\<        {printf ("<< \n");return moinsmoinsStr;}
+\>\>        {printf (">> \n");return plusplusStr;}
+(?i:while)       {printf ("while \n");return whileStr;}
+(?i:for)         {printf ("for\n");return forStr;}
+(?i:in)          {printf ("in \n");return inStr;}
+(?i:out)         {printf ("out \n");return outStr;}
+(?i:reverse)    {printf ("reverse \n");return reverseStr;}
+(?i:if)          {printf ("if \n");return ifStr;}
+(?i:then)        {printf ("then \n");return thenStr;}
+(?i:else)        {printf ("else \n");return elseStr;}
+(?i:elsif)       {printf ("elsif \n");return elsifStr;}
+(?i:when)        {printf ("when \n");return whenStr;}
+(?i:=>)          {printf (" => \n");return flecheStr;}
+(?i:others)      {printf ("others \n");return othersStr;}
+(?i:exit)        {printf ("exit \n");return exitStr;}
+(?i:abs)         {printf ("abs \n");return absStr;}
+(?i:not)         {printf ("not \n");return notStr;}
+(?i::=)          {printf (":= \n");return dpegalStr;}
+(?i:constant)    {printf ("constant\n");return constantStr;}
+(?i::\n)         {printf (":saut de ligne\n");return dpsautlinStr;}
+(?i:and)         {printf ("and \n");return andStr;}
+(?i:or)          {printf ("or \n");return orStr;}
+(?i:end)         {printf ("end \n"); return endStr;}
+(?i:xor)         {printf ("xor \n");return xorStr;}
+\/=              {printf ("symbole \n"); return symbole;}
+\*\*             {printf ("symbole \n"); return symbole;}
+\<=              {printf ("symbole \n"); return symbole;}
+\>=              {printf ("symbole \n"); return symbole;}
+mod              {printf ("symbole \n"); return symbole;}
+rem              {printf ("symbole \n"); return symbole;}   
+[+|*|/|=|<|>]  {printf ("symbole\n");return symbole;}
+[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*     {printf("identifiant\n");return identifiant;}
+[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*(\.[a-zA-Z](_[a-zA-Z1-9]|[a-zA-Z1-9])*)+     {printf("identifiant qualifié\n");return qualifIdentifiant;}
+[0-9](_[0-9]|[0-9])*#[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*(\.[0-9a-fA-F](_[0-9a-fA-F]|[0-9a-fA-F])*)?#([eE][+-]?[0-9](_[0-9]|[0-9])*)?     {printf("baseConst \n");return baseConst;}
+[0-9](_[0-9]|[0-9])*(.[0-9](_[0-9]|[0-9])*)?([eE][+-]?[0-9](_[0-9]|[0-9])*)?    {printf("decConst \n");return decConst;}
+\"(""|(\"\"|[^\n\"])*)\"    {printf("stringConst \n");return stringConst;}
+--.*\n                      {line_num++; printf("%d ", line_num);};
 [ \t]                       ;
-\n                          ;
+\n                          {line_num++; printf("%d ", line_num);};
 .                           {ECHO; yyerror ("unexpected character");};
 
 
