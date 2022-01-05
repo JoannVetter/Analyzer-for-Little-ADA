@@ -146,8 +146,8 @@ beginFor    : identifiant dpsautlinStr forStr forCondition loopStr     {;}
 
 forCondition    : identifiant inStr reverseStr expression ptptStr expression {;}
                 | identifiant inStr expression ptptStr expression           {;}
-                | identifiant inStr reverseStr identifiants               {;} // identifiants = type
-                | identifiant inStr identifiants                          {;} // identifiants = type
+                | identifiant inStr reverseStr type               {;}
+                | identifiant inStr type                          {;} 
                 ;
 
 conditionnelle  : ifStr expression thenStr instructions elsifs elseStr instructions endStr ifStr ';'   {;}
