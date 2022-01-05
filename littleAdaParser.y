@@ -115,7 +115,7 @@ structInstruction   : etiquettes instruction    {;}
                     ;
 
 instruction : nullStr ';'                                            {;} 
-            | identifiants dpegalStr expression ';'                      {;} ////////
+            | identifiants dpegalStr expression ';'                      {;}
             | procedureCall                                         {;}
             | beginLoop instructions endLoop ';'                    {;}
             | beginWhile instructions endLoop ';'                   {;}
