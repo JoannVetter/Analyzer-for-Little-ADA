@@ -194,27 +194,21 @@ expressions : expression ',' expressions {;}
 			| expression				 {;}
 			;
 		
-identifiantsVirgule : identifiant ',' identifiants {;}
+identifiantsVirgule : identifiant ',' identifiantsVirgule {;}
 			| identifiant				 {;}
 			;
 
-expression  : term                      {;}
-			| absStr expression			{;}
+expression  : absStr expression			{;}
 			| notStr expression			{;}
 			| '-' expression			{;}
 			| expression symbole expression {;}
-			| identifiant '('expressions')' {;}
-			| qualifIdentifiant '('expressions')' {;}
+			| identifiants '('expressions')' {;}
 			| '('expression')' {;}
-			//et et ou coupe circuit pas compris mdr du coup il reste le then et le else
-			;
-
-term        : identifiant               {printf("identifiant");}
-            | qualifIdentifiant         {printf("qualifIdentifiant");}
-            | baseConst                 {printf("baseConst");}
+			| baseConst                 {printf("baseConst");}
             | decConst                  {printf("decConst");}
             | stringConst               {printf("stringConst");}
-            ;
+			//et et ou coupe circuit pas compris mdr du coup il reste le then et le else
+			;
 
 
 /* line    : assignment ';'		{;}
