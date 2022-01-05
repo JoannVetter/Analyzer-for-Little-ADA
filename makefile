@@ -7,6 +7,9 @@ lex.yy.c: littleAdaParser.l littleAdaParser.tab.c
 littleAdaParser.tab.c: littleAdaParser.y
 	bison -d littleAdaParser.y
 
+debug:
+	bison -d littleAdaParser.y -Wconflicts-sr -Wconflicts-rr -Wcounterexamples
+
 clean:
 	rm lex.yy.c || true
 	rm littleAdaParser.tab.c || true
