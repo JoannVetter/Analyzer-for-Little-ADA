@@ -7,8 +7,8 @@
 %%
 
 (?i:range)       {return rangeStr;}
-\.\.        {return ptptStr;}
-(?:itype)        {return typeStr;}
+(?i:\.\.)        {return ptptStr;}
+(?i:type)        {return typeStr;}
 (?i:subtype)     {return subtypeStr;}
 (?i:is)          {return isStr;}
 (?i:renames)     {return renamesStr;}
@@ -16,13 +16,13 @@
 (?i:function)    {return functionStr;}
 (?i:return)      {return returnStr;}
 (?i:begin)       {return beginStr;}
-(?i:null)       {return nullStr;}
+(?i:null)        {return nullStr;}
 (?i:case)        {return caseStr;}
 (?i:goto)        {return gotoStr;}
 (?i:loop)        {return loopStr;}
-\<\<        {return moinsmoinsStr;}
-\>\>        {return plusplusStr;}
-(?:iwhile)       {return whileStr;}
+(?i:\<\<)        {return moinsmoinsStr;}
+(?i:\>\>)        {return plusplusStr;}
+(?i:while)       {return whileStr;}
 (?i:for)         {return forStr;}
 (?i:in)          {return inStr;}
 (?i:out)         {return outStr;}
@@ -32,14 +32,14 @@
 (?i:else)        {return elseStr;}
 (?i:elsif)       {return elsifStr;}
 (?i:when)        {return whenStr;}
-=>          {return flecheStr;}
+(?i:=>)          {return flecheStr;}
 (?i:others)      {return othersStr;}
 (?i:exit)        {return exitStr;}
 (?i:abs)         {return absStr;}
 (?i:not)         {return notStr;}
-:=          {return dpegalStr;}
+(?i::=)          {return dpegalStr;}
 (?i:constant)    {return constantStr;}
-:\n         {return dpsautlinStr;}
+(?i::\n)         {return dpsautlinStr;}
 (?i:and)         {return andStr;}
 (?i:or)          {return orStr;}
 [+|-|*|/|**|=|/=|<=|>=|<|>|mod|rem|and|or|xor] {return symbole;}
@@ -49,7 +49,8 @@
 [0-9](_[0-9]|[0-9])*(.[0-9](_[0-9]|[0-9])*)?([eE][+-]?[0-9](_[0-9]|[0-9])*)?    {return decConst;}
 \"(""|(\"\"|[^\n\"])*)\"    {return stringConst;}
 --.*\n                      ;
-[ \t\n]                     ;
+[ \t]                       ;
+\n                          ;
 .                           {ECHO; yyerror ("unexpected character");};
 
 
